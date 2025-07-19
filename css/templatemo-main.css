@@ -905,5 +905,18 @@ nav a:hover::before {
 }
 
 .contact-buttons a:hover {
-  background-color: #444;
+  background-color: #000000;
+}
+.lightbox-caption-center {
+    text-align: center;
+}
+
+.lightbox-paper-link {
+    color: #000000;
+    background-color: #f96d38;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
 }
