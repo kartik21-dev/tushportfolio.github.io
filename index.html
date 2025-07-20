@@ -18,16 +18,19 @@ https://templatemo.com/tm-512-moonlight
     <link rel="stylesheet" href="css/fontAwesome.css">
     <link rel="stylesheet" href="css/light-box.css">
     <link rel="stylesheet" href="css/templatemo-main.css">
+    <link rel="stylesheet" href="css/rain.css">
+
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
     <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
 </head>
 
 <body>
+    <canvas id="rain-canvas"></canvas>
 
     <div class="sequence">
-
         <div class="seq-preloader">
             <svg width="39" height="16" viewBox="0 0 39 16" xmlns="http://www.w3.org/2000/svg"
                 class="seq-preload-indicator">
@@ -528,6 +531,59 @@ https://templatemo.com/tm-512-moonlight
 
 
     </script>
+
+
+    <script>
+        const canvas = document.getElementById('rain-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const raindrops = [];
+        for (let i = 0; i < 300; i++) {
+            raindrops.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                length: Math.random() * 20 + 10,
+                speed: Math.random() * 4 + 4
+            });
+        }
+
+        function drawRain() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'rgba(174,194,224,0.5)';
+            ctx.lineWidth = 1;
+
+            for (let i = 0; i < raindrops.length; i++) {
+                const d = raindrops[i];
+                ctx.beginPath();
+                ctx.moveTo(d.x, d.y);
+                ctx.lineTo(d.x, d.y + d.length);
+                ctx.stroke();
+                d.y += d.speed;
+                if (d.y > canvas.height) {
+                    d.y = -20;
+                    d.x = Math.random() * canvas.width;
+                }
+            }
+
+            requestAnimationFrame(drawRain);
+        }
+
+        drawRain();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+
+
+
+
+</body>
+
 </body>
 
 </html>
